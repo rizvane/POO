@@ -1,30 +1,24 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fchou
- * Date: 30/10/2018
- * Time: 11:33
- */
 
 namespace App\Repository;
 
 
-use App\Entity\User as UserEntity;
+use App\Entity\Post as PostEntity;
 use Twig\Cache\CacheInterface;
 
-final class CachedUser implements User
+final class CachedPost implements Post
 {
     private $repository;
 
     private $cache;
 
-    public function __construct(User $repository, CacheInterface $cache)
+    public function __construct(Post $repository, CacheInterface $cache)
     {
         $this->repository = $repository;
         $this->cache = $cache;
     }
 
-    public function find(string $id): UserEntity
+    public function find(string $id): PostEntity
     {
         if ($this->cache->has($id)){
             return $this->cache->get($id);
@@ -36,7 +30,7 @@ final class CachedUser implements User
         return $user;
     }
 
-    public function create(string $name): UserEntity
+    public function create(string $name): PostEntity
     {
         $user = $this->repository->create($name);
         $this->cache->set($user->id(), $user);

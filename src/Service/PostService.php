@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Entity\User as UserEntity;
-use App\Repository\User;
+use App\Entity\Post as PostEntity;
+use App\Repository\Post;
 use App\Validator\Validator;
 
-final class UserService
+final class PostService
 {
     private $validator;
 
     private $repository;
 
-    public function __construct(Validator $validator, User $userRepository)
+    public function __construct(Validator $validator, Post $userRepository)
     {
         $this->validator = $validator;
         $this->repository = $userRepository;
     }
 
-    public function find(string $value): UserEntity
+    public function find(string $value): PostEntity
     {
         $this->validator->validate($value);
         // if ($this->cache->has($value)) {

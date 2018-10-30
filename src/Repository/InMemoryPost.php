@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Entity\User as UserEntity;
+use App\Entity\Post as PostEntity;
 use Ramsey\Uuid\Uuid;
 
-final class InMemoryUser implements User
+final class InMemoryPost implements Post
 {
     private $users = [];
 
@@ -17,7 +17,7 @@ final class InMemoryUser implements User
         $this->users[$uuid] = new UserEntity($uuid, 'demo');
     }
 
-    public function find(string $id): UserEntity
+    public function find(string $id): PostEntity
     {
         if (!isset($this->users[$id])) {
             throw new \LogicException('Id does not exist');
@@ -26,7 +26,7 @@ final class InMemoryUser implements User
         return $this->users[$id];
     }
 
-    public function create(string $name): UserEntity
+    public function create(string $name): PostEntity
     {
         return new UserEntity((Uuid::uuid4())->toString(), $name);
     }
